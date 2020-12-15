@@ -1,0 +1,12 @@
+@import '../config.scss';
+
+.btn-features{
+    padding: 10px;
+    margin: 0 20px;
+    text-align: center;
+    border: 0;
+    border-radius: 5px;
+    background:$BgApp;
+    color: $DarkCyan;
+    font-weight: 700;
+}

@@ -1,18 +1,35 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+<Profile
+  v-for="profile in profiles"
+  :key=profile.id
+  :profile=profile
+/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import "@/sass/home.scss";
+import Profile from '../components/Profile'
+//GET DATA PROFILE
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    HelloWorld
-  }
-}
+    Profile
+  },
+  data() {
+    return {
+      profiles: [],
+    };
+  },
+  mounted: function() {
+   const data = fetch("http://localhost:3001/profiles");
+    data
+    .then((res) => res.json())
+    .then((data) => {
+     this.profiles=  data
+     console.log(this.profiles)
+    });
+  },
+};
 </script>
