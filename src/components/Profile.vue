@@ -21,13 +21,23 @@
       <button
         :name="profile.role"
         class="btn-skills"
-        v-on:click="$emit('getIdFilter',profile.role)"
+        @click="
+          AddKeyWords({
+            type: 'role',
+            value: profile.role,
+          })
+        "
       >
         {{ profile.role }}</button
       ><button
-        v-on:click="$emit('getIdFilter',profile.level)"
         :name="profile.level"
         class="btn-skills"
+        v-on:click="
+          AddKeyWords({
+            type: 'level',
+            value: profile.level,
+          })
+        "
       >
         {{ profile.level }}
       </button>
@@ -36,7 +46,12 @@
         :key="language"
         :name="language"
         class=" btn-skills languages"
-        v-on:click="$emit('getIdFilter',language)"
+        v-on:click="
+          AddKeyWords({
+            type: 'language',
+            value: language,
+          })
+        "
       >
         {{ language }}
       </button>
@@ -45,7 +60,10 @@
         v-for="tool in profile.tools"
         :key="tool"
         :name="tool"
-        v-on:click="$emit('getIdFilter',tool)"
+        v-on:click="AddKeyWords({
+          type:'tools',
+          value:tool
+          })"
       >
         {{ tool }}
       </button>
@@ -55,6 +73,7 @@
 
 <script>
 import "../sass/components/profile.scss";
+import Store from "../helppers/store";
 export default {
   name: "Profile",
   props: {
@@ -63,6 +82,10 @@ export default {
       required: true,
     },
   },
-  
+  methods: {
+    AddKeyWords: (value) => {
+      Store.SetKeywordsAction(value);
+    },
+  },
 };
 </script>

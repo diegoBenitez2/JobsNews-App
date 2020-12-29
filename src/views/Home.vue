@@ -1,49 +1,57 @@
 <template>
   <div class="home">
-    <Filters
-    :words=keywords
-    />
-  <Profile
-  v-for="profile in profiles"
-  :key=profile.id
-  :profile=profile
-  v-on:getIdFilter= "HandleChange"
-/>
+    <Filters :keywords="SharedKeywords" />
+
+    <Profile v-for="profile in profiles" :key="profile.id" :profile="profile" />
   </div>
 </template>
 
 <script>
 import "@/sass/home.scss";
-import Profile from '../components/Profile'
-import Filters from '../components/Filters'
+import Profile from "../components/Profile";
+import Filters from "../components/Filters";
+import Store from "../helppers/store";
 //GET DATA PROFILE
 export default {
   name: "Home",
   components: {
     Profile,
-    Filters
+    Filters,
   },
   data() {
     return {
-      profiles: [], 
-      keywords:[]
+      profiles: [],
+      SharedKeywords: Store.state.keyWords,
     };
   },
-  methods:{
-    HandleChange:function (e){
-      this.keywords.push(e)
-      console.log(this.keywords)
-    }
-     
+  methods: {
+    GetDataForFilter: function() {
+      let filters = "";
+      this.SharedKeywords.forEach((element, index) => {
+        filters += `${element.type}=${element.value}`;
+        if (index !== this.SharedKeywords.length - 1) {
+          filters += "&";
+        }
+      });
+
+      const response = fetch(`http://localhost:3001/profiles?${filters}`);
+      response
+        .then((res) => res.json())
+        .then((data) => {
+          this.profiles = data;
+        });
+    },
+  },
+  watch: {
+    SharedKeywords: "GetDataForFilter",
   },
   mounted: function() {
-   const data = fetch("http://localhost:3001/profiles");
+    const data = fetch("http://localhost:3001/profiles");
     data
-    .then((res) => res.json())
-    .then((data) => {
-     this.profiles=  data
-     console.log(this.profiles)
-    });
+      .then((res) => res.json())
+      .then((data) => {
+        this.profiles = data;
+      });
   },
 };
 </script>

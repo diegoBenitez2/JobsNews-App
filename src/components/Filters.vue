@@ -1,33 +1,34 @@
 <template>
   <div 
-  v-if="cleanModal"
+  v-if="keywords.length !== 0"
   class="modal">
   <div class="container_keywords">
 <KeyWords
-  v-for="kw in words"
-  :key= kw
-  :word= kw
+  v-for="keyword in keywords"
+  :key= keyword.value
+  :item= keyword
 />
   </div>
 
-    <a class="clean-modal" v-on:click="cleanModal = false">clear</a>
+    <a class="clean-modal" @click="CleanFilters">clear</a>
   </div>
 </template>
 
 <script>
 import "../sass/components/filters.scss";
 import KeyWords from "./keyWord"
+import Store from '../helppers/store'
 export default {
   name: "Filters",
   components:{
     KeyWords
   },
   props:{
-    words: Array
+    keywords: Array
   },
-  data(){
-    return{
-      cleanModal: true
+  methods:{
+    CleanFilters: function () {
+      Store.CleanFilterAction()
     }
   }
 };
