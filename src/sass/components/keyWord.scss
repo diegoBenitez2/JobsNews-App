@@ -1,0 +1,26 @@
+@import '../config.scss';
+.container{
+    display: flex;
+    align-items: center;
+    border-radius: 7px;
+    padding: 10px;
+    margin-right: 10px;
+    .key{
+        background-color: $BgApp;
+        color: $DarkCyan;
+        text-align: center;
+        font-weight: 700;
+        margin: 0;
+       padding: 5px 5px;
+    }
+    .btn_closeKey{
+        padding: 5px 10px;
+        background-color: $DarkCyan;
+        border: 0;
+        color: white;
+        font-weight: bold;
+        &:hover{
+            background-color: black;
+        }
+    }
+}

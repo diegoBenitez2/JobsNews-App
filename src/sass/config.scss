@@ -4,4 +4,11 @@ $DarkCyan:hsl(180, 29%, 50%);
 $DarkGrayishCyan:hsl(180, 8%, 52%);
 $VeryDarkGrayishCyan:hsl(180, 14%, 20%);
 
-
+@mixin  badgeStyle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white ;
+    box-shadow: 0px 4px 15px hsla(180, 29%, 50%,.5);
+    border-radius: 5px;
+}
